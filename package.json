@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "load_data": "node tests/mongo_load_fhir_resources.js"
+    "load-data": "node src/load-data/mongo-load-fhir-resources.js"
   },
   "author": "",
   "license": "MIT",
