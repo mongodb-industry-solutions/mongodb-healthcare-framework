@@ -1,0 +1,17 @@
+{
+  "name": "mongodb-healthcare-framework",
+  "version": "1.0.0",
+  "description": "MongoDB Healthcare Framework",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "load_data": "node tests/mongo_load_fhir_resources.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^6.8.0"
+  }
+}
