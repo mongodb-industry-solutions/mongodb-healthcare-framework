@@ -7,11 +7,16 @@
     "test": "tests"
   },
   "scripts": {
+    "db": "node src/db/mongodb-connection.js",
+    "fhir-api": "node src/fhir-api/app.js",
     "load-data": "node src/load-data/mongo-load-fhir-resources.js"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "mongodb": "^6.8.0"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0",
+    "morgan": "^1.10.0"
   }
 }
