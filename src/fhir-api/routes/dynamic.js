@@ -17,16 +17,12 @@ router.get("/api/:resource", async (req, res) => {
 
   try {
     const db = await connectToMongoDB();
-    const collection = db.collection(resource);
+    const resourceName = resource.toLowerCase();
+    const collection = db.collection(resourceName);
+    const results = await collection.find().toArray();
 
-    if (resource === "Patients") {
-      return res
-        .status(200)
-        .json({ message: "You requested the data of Patients." });
-    } else if (resource === "Observations") {
-      return res
-        .status(200)
-        .json({ message: "You requested the data of Observations." });
+    if (results.length !== 0) {
+      return res.status(200).json(results);
     } else {
       return res.status(404).json({ error: "Resource not found" });
     }
