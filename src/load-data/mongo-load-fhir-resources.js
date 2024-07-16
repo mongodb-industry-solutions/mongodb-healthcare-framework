@@ -21,14 +21,14 @@ async function loadFhirToMongoDB() {
       "synthea_sample_data_fhir_latest"
     );
     const files = fs.readdirSync(folderPath);
-    console.log("processing files");
+    console.log("Processing files");
 
-    files.slice(0, 5).forEach((file) => {
+    for (const file of files.slice(0, 5)) {
       const filePath = path.join(folderPath, file);
       const fileData = fs.readFileSync(filePath, "utf8");
       const fhirBundle = JSON.parse(fileData);
 
-      fhirBundle.entry.forEach(async (entry) => {
+      const insertPromises = fhirBundle.entry.map(async (entry) => {
         const resource = entry.resource;
         const collection = database.collection(
           resource.resourceType.toLowerCase() + "s"
@@ -44,16 +44,16 @@ async function loadFhirToMongoDB() {
             resourceType: resource.resourceType,
           },
           resource: resource,
-          // Add more properties as needed
         });
       });
-    });
 
-    console.log("loaded resources to MongoDB successfully!");
+      await Promise.all(insertPromises); //May take a minute or two to complete all promises
+    }
+
+    console.log("Loaded resources to MongoDB successfully!");
   } catch (err) {
     console.error("Failed to connect to MongoDB", err);
   } finally {
-    // Ensures that the client will close when you finish/error
     await client.close();
   }
 }
