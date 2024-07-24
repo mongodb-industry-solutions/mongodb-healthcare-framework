@@ -9,6 +9,9 @@ function connectToMongoDB() {
 router.get("/api/:resource", async (req, res) => {
   const resource = req.params.resource;
 
+  console.log("Host URL: ", req.originalUrl);
+  console.log("Origin: ", req.headers.host);
+
   try {
     const db = await connectToMongoDB();
     const resourceName = resource.toLowerCase();
