@@ -8,7 +8,7 @@
   },
   "scripts": {
     "db": "node src/db/mongodb-connection.js",
-    "fhir-api": "node src/fhir-api/app.js",
+    "api": "node src/api/app.js",
     "load-data": "node src/load-data/mongo-load-fhir-resources.js"
   },
   "author": "",
