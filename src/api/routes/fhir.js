@@ -6,15 +6,9 @@ function connectToMongoDB() {
   return connectToDatabase();
 }
 
-router.get("/api/:resource", async (req, res) => {
+router.get("/:resource", async (req, res) => {
   const resource = req.params.resource;
   const query = req.query;
-
-  //console.log("Host URL: ", req.originalUrl);
-  //console.log("Origin: ", req.headers.host);
-  //console.log(req.params);
-  //console.log(req.params.resource);
-  console.log(req.query);
 
   try {
     const db = await connectToMongoDB();
@@ -39,12 +33,9 @@ router.get("/api/:resource", async (req, res) => {
   }
 });
 
-router.get("/api/metadata/:resource", async (req, res) => {
+router.get("/metadata/:resource", async (req, res) => {
   const resource = req.params.resource;
   const query = req.query;
-
-  //console.log("Host URL: ", req.originalUrl);
-  console.log(req.query);
 
   try {
     const db = await connectToMongoDB();
