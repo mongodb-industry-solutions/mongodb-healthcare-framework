@@ -7,7 +7,6 @@
     "test": "tests"
   },
   "scripts": {
-    "db": "node src/db/mongodb-connection.js",
     "api": "node src/api/app.js",
     "load-data": "node src/load-data/mongo-load-fhir-resources.js"
   },
