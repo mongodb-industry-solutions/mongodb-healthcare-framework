@@ -1,10 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { connectToDatabase } = require("../../db/mongodb-connection");
-
-function connectToMongoDB() {
-  return connectToDatabase();
-}
+const { connectToMongoDB } = require("../services/database/mongodb");
+const { splitQueryParams } = require("../services/params/paramHandler");
+const { executeMongoQuery } = require("../services/query/mongoQuery");
+const {
+  addResourcePrefix,
+} = require("../services/params/resourceQueryHandler");
 
 router.get("/:resource", async (req, res) => {
   const resource = req.params.resource;
@@ -15,12 +16,16 @@ router.get("/:resource", async (req, res) => {
     const resourceName = resource.toLowerCase();
     const collection = db.collection(resourceName);
 
-    const resourceQuery = {};
-    for (const key in query) {
-      resourceQuery[`resource.${key}`] = query[key];
-    }
+    const { specialParams, regularParams } = splitQueryParams(query);
 
-    const results = await collection.find(resourceQuery).toArray();
+    console.log("Special Parameters:", specialParams);
+    console.log("Regular Parameters:", regularParams);
+
+    const resourceQuery = addResourcePrefix(regularParams);
+
+    console.log("Resource Query for MongoDB:", resourceQuery);
+
+    const results = await executeMongoQuery(collection, resourceQuery);
 
     if (results.length !== 0) {
       return res.status(200).json(results);

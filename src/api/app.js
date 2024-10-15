@@ -8,9 +8,9 @@ const app = express();
 const PORT = 3456;
 
 app.use(bodyParser.json());
-app.use(morgan("combined"));
+app.use(morgan("short"));
 
-app.use("/api/fhir", fhirRoutes);
+app.use("/api/fhir/r4", fhirRoutes);
 app.use("/api/db", dbRoutes);
 
 app.listen(PORT, () => {
