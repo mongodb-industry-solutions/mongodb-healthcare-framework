@@ -8,13 +8,15 @@
   },
   "scripts": {
     "api": "node src/api/app.js",
-    "load-data": "node src/load-data/mongo-load-fhir-resources.js"
+    "load-data": "node src/load-data/mongo-load-fhir-resources.js",
+    "test": "jest --coverage"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "jest": "^29.7.0",
     "mongodb": "^6.8.0",
     "morgan": "^1.10.0"
   }
