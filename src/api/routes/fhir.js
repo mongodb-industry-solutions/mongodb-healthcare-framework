@@ -30,7 +30,7 @@ router.get("/:resource", async (req, res) => {
     if (results.length !== 0) {
       return res.status(200).json(results);
     } else {
-      return res.status(404).json({ error: "Resource not found" });
+      return res.status(404).json({ error: "No documents found" });
     }
   } catch (error) {
     console.error("Error in handling request:", error);
