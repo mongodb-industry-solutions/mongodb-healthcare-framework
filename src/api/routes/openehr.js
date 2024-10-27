@@ -92,4 +92,59 @@ router.get("/ehr/:ehrId/composition/:compositionId", async (req, res) => {
   }
 });
 
+router.post(
+  "/ehr/definition/template/adl1.4",
+  express.text({ type: "application/xml" }),
+  async (req, res) => {
+    const xmlData = req.body;
+
+    try {
+      if (typeof xmlData !== "string") {
+        return res.status(400).json({ error: "XML data must be a string" });
+      }
+
+      const db = await connectToMongoDB();
+      const collection = db.collection("templates");
+
+      const document = {
+        data: xmlData,
+        createdAt: new Date(),
+      };
+
+      const result = await collection.insertOne(document);
+
+      return res.status(201).json({
+        message: "Template stored successfully",
+        id: result.insertedId,
+      });
+    } catch (error) {
+      console.error("Error storing XML template:", error);
+      return res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
+
+router.get("/ehr/definition/template/adl1.4", async (req, res) => {
+  try {
+    const db = await connectToMongoDB();
+    const collection = db.collection("templates");
+
+    const templates = await collection.find().sort({ createdAt: -1 }).toArray();
+
+    if (!templates.length) {
+      return res.status(404).json({ error: "Templates not found" });
+    }
+
+    const templateDetails = templates.map((template) => ({
+      _id: template._id,
+      created_timestamp: template.createdAt,
+    }));
+
+    return res.status(200).json(templateDetails);
+  } catch (error) {
+    console.error("Error retrieving templates:", error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
