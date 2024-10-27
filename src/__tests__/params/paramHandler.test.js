@@ -1,4 +1,4 @@
-const { splitQueryParams } = require("../../api/services/params/paramHandler"); // Adjust path if needed
+const { splitQueryParams } = require("../../api/services/params/paramHandler");
 
 describe("splitQueryParams", () => {
   it('should split keys that start with "_" into specialParams and the rest into regularParams', () => {
