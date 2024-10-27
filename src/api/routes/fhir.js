@@ -16,6 +16,8 @@ router.get("/:resource", async (req, res) => {
     const resourceName = resource.toLowerCase();
     const collection = db.collection(resourceName);
 
+    console.log(query);
+
     const { specialParams, regularParams } = splitQueryParams(query);
 
     console.log("Special Parameters:", specialParams);
