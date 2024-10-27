@@ -1,15 +1,17 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const dynamicRoutes = require("./routes/main");
+const fhirRoutes = require("./routes/fhir");
+const dbRoutes = require("./routes/mongodb");
 const morgan = require("morgan");
 
 const app = express();
 const PORT = 3456;
 
 app.use(bodyParser.json());
-app.use(morgan("combined"));
+app.use(morgan("short"));
 
-app.use("/main", dynamicRoutes);
+app.use("/api/fhir/r4", fhirRoutes);
+app.use("/api/db", dbRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

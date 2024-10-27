@@ -21,3 +21,6 @@ stop:
 	
 clean:
 	docker compose down --rmi all -v
+
+tests:
+	open coverage/lcov-report/index.html

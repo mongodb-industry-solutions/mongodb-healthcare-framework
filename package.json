@@ -2,20 +2,20 @@
   "name": "mongodb-healthcare-framework",
   "version": "1.0.0",
   "description": "MongoDB Healthcare Framework",
-  "main": "index.js",
   "directories": {
     "test": "tests"
   },
   "scripts": {
-    "db": "node src/db/mongodb-connection.js",
-    "fhir-api": "node src/fhir-api/app.js",
-    "load-data": "node src/load-data/mongo-load-fhir-resources.js"
+    "api": "node src/api/app.js",
+    "load-data": "node src/load-data/mongo-load-fhir-resources.js",
+    "test": "jest --coverage"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "jest": "^29.7.0",
     "mongodb": "^6.8.0",
     "morgan": "^1.10.0"
   }
