@@ -1,0 +1,360 @@
+openapi: 3.0.0
+info:
+  title: Express API Documentation
+  description: API documentation for the Express application
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api
+    description: Local development server
+
+paths:
+  /{resource}:
+    get:
+      summary: Retrieve a resource
+      parameters:
+        - name: resource
+          in: path
+          required: true
+          description: Name of the resource to retrieve
+          schema:
+            type: string
+        - name: query
+          in: query
+          required: false
+          description: Query parameters to filter the results
+          schema:
+            type: object
+      responses:
+        "200":
+          description: Successfully retrieved resource
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        "404":
+          description: No documents found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /metadata/{resource}:
+    get:
+      summary: Retrieve metadata for a resource
+      parameters:
+        - name: resource
+          in: path
+          required: true
+          description: Name of the resource for which to retrieve metadata
+          schema:
+            type: string
+        - name: query
+          in: query
+          required: false
+          description: Query parameters for metadata
+          schema:
+            type: object
+      responses:
+        "200":
+          description: Successfully retrieved metadata
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+        "404":
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /mongodb/connect:
+    post:
+      summary: Connect to MongoDB database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                uri:
+                  type: string
+                  description: MongoDB connection string
+                dbName:
+                  type: string
+                  description: Name of the database to connect to
+      responses:
+        "200":
+          description: Successfully connected to MongoDB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  database:
+                    type: string
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Error connecting to MongoDB
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /ehr/{ehrId}:
+    put:
+      summary: Update or create EHR data
+      parameters:
+        - name: ehrId
+          in: path
+          required: true
+          description: EHR ID to update or create
+          schema:
+            type: string
+      responses:
+        "200":
+          description: EHR data stored successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+    get:
+      summary: Retrieve EHR data
+      parameters:
+        - name: ehrId
+          in: path
+          required: true
+          description: EHR ID to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved EHR data
+          content:
+            application/json:
+              schema:
+                type: object
+        "404":
+          description: EHR document not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /ehr/{ehrId}/composition:
+    post:
+      summary: Create a composition for a given EHR ID
+      parameters:
+        - name: ehrId
+          in: path
+          required: true
+          description: EHR ID to associate the composition with
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        "201":
+          description: Composition stored successfully
+          content:
+            application/json:
+              schema:
+                type: object
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /ehr/{ehrId}/composition/{compositionId}:
+    get:
+      summary: Retrieve a specific composition
+      parameters:
+        - name: ehrId
+          in: path
+          required: true
+          description: EHR ID associated with the composition
+          schema:
+            type: string
+        - name: compositionId
+          in: path
+          required: true
+          description: ID of the composition to retrieve
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Successfully retrieved composition
+          content:
+            application/json:
+              schema:
+                type: object
+        "404":
+          description: Composition not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+  /ehr/definition/template/adl1.4:
+    post:
+      summary: Store an XML template
+      requestBody:
+        required: true
+        content:
+          application/xml:
+            schema:
+              type: string
+              description: XML data to store
+      responses:
+        "201":
+          description: Template stored successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  id:
+                    type: string
+        "400":
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+
+    get:
+      summary: Retrieve all templates
+      responses:
+        "200":
+          description: Successfully retrieved templates
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                    created_timestamp:
+                      type: string
+        "404":
+          description: Templates not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
