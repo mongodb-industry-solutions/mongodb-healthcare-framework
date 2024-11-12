@@ -9,7 +9,7 @@ router.put("/ehr/:ehrId", async (req, res) => {
 
   try {
     const db = await connectToMongoDB();
-    const collection = db.collection("openEHR");
+    const collection = db.collection("openehr");
     const document = createEHRDocument(ehrId);
 
     const result = await collection.updateOne(
@@ -32,7 +32,7 @@ router.get("/ehr/:ehrId", async (req, res) => {
 
   try {
     const db = await connectToMongoDB();
-    const collection = db.collection("openEHR");
+    const collection = db.collection("openehr");
 
     const document = await collection.findOne({ "ehr_id.value": ehrId });
 
