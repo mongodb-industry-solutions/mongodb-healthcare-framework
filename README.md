@@ -10,5 +10,5 @@ docker build -t hc-framework .
 ```
 
 ```
-docker run -p 3456:3456 hc-framework -d --name hc-framework 
+docker run -d --name hc-framework -p 3456:3456 hc-framework
 ```
