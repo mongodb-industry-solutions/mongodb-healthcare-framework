@@ -129,4 +129,4 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-src/tests/synthea_sample_data_fhir_latest/
+src/modules/fhir/load-data/synthea_sample_data_fhir_latest/

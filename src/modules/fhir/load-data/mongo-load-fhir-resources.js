@@ -1,25 +1,24 @@
 const fs = require("fs");
 const { MongoClient } = require("mongodb");
 const path = require("path");
-const config = require("../config");
+require("dotenv").config();
 
 async function loadFhirToMongoDB() {
-  const uri = config.mongoDBConnectionString;
+  const uri = process.env.MONGO_ATLAS_URI;
   const client = new MongoClient(uri);
 
   try {
-    // Connect the client to the server
     await client.connect();
-    const database = client.db("fhir-server");
+    const dbname = process.env.DB_NAME;
+    const database = client.db(dbname);
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
 
-    const folderPath = path.join(
-      __dirname,
-      "../tests",
-      "synthea_sample_data_fhir_latest"
-    );
+    const folderPath = path.join(__dirname, "synthea_sample_data_fhir_latest");
+
+    console.log(folderPath);
+
     const files = fs.readdirSync(folderPath);
     console.log("Processing files");
 
