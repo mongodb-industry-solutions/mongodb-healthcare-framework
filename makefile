@@ -24,3 +24,6 @@ clean:
 
 tests:
 	open coverage/lcov-report/index.html
+
+docs:
+	open out/index.html
