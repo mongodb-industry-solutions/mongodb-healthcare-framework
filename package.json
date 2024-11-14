@@ -7,7 +7,8 @@
   },
   "scripts": {
     "api": "node src/api/app.js",
-    "fhir-load-data": "node src/modules/fhir/load-data/mongo-load-fhir-resources.js",
+    "fhir-load-data-multiple": "node src/modules/fhir/load-data/mongo-load-fhir-resources-multiple-collections.js",
+    "fhir-load-data-single": "node src/modules/fhir/load-data/mongo-load-fhir-resources-single-collection.js",
     "test": "jest --coverage",
     "docs": "jsdoc src/**/**/**/*.js"
   },

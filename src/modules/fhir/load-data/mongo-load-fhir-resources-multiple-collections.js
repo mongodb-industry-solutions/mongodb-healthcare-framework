@@ -9,7 +9,7 @@ async function loadFhirToMongoDB() {
 
   try {
     await client.connect();
-    const dbname = process.env.DB_NAME;
+    const dbname = process.env.DATABASE_NAME;
     const database = client.db(dbname);
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
