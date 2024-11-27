@@ -35,11 +35,24 @@ async function loadFhirToMongoDB() {
         await collection.insertOne({
           metadata: {
             documentVersion: "1.0",
-            fhirVersion: "4.0.0",
             lastUpdate: new Date().toISOString(),
-            tenant_id: "Tenant",
             id: resource.id,
             resourceType: resource.resourceType,
+          },
+          unitData: {
+            typeOfUnit: "FHIR",
+            version: "4.0.0",
+            status: "active",
+          },
+          searchParams: {
+            id: resource.id,
+            resourceType: resource.resourceType,
+          },
+          relatedDocuments: {
+            parentDocumentId: "123",
+          },
+          advancedSearch: {
+            embeddings: [],
           },
           resource: resource,
         });
