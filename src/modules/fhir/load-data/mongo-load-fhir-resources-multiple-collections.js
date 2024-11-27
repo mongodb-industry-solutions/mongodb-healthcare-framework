@@ -37,20 +37,25 @@ async function loadFhirToMongoDB() {
           metadata: {
             documentVersion: "1.0",
             lastUpdate: new Date().toISOString(),
+            status: "active",
+            protocol: {
+              type: "FHIR",
+              version: "4.0.0",
+            },
+          },
+          searchParamsSingle: {
             id: resource.id,
             resourceType: resource.resourceType,
           },
-          unitData: {
-            typeOfUnit: "FHIR",
-            version: "4.0.0",
-            status: "active",
-          },
-          searchParams: {
+          searchParamsMultiple: {
             id: resource.id,
             resourceType: resource.resourceType,
           },
           relatedDocuments: {
             parentDocumentId: "123",
+          },
+          customApplicationData: {
+            test: "test",
           },
           advancedSearch: {
             embeddings: [1, 2, 3],
