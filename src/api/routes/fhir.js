@@ -6,6 +6,9 @@ const { executeMongoQuery } = require("../services/query/mongoQuery");
 const {
   addResourcePrefix,
 } = require("../services/params/resourceQueryHandler");
+const {
+  deconstructRegularParams,
+} = require("../services/params/deconstructRegularParams");
 
 router.get("/:resource", async (req, res) => {
   const resource = req.params.resource;
@@ -23,11 +26,15 @@ router.get("/:resource", async (req, res) => {
     console.log("Special Parameters:", specialParams);
     console.log("Regular Parameters:", regularParams);
 
-    const resourceQuery = addResourcePrefix(regularParams);
+    const cleanUpRegularParams = deconstructRegularParams(regularParams);
 
-    console.log("Resource Query for MongoDB:", resourceQuery);
+    console.log("Cleaned up Parameters: ", cleanUpRegularParams);
 
-    const results = await executeMongoQuery(collection, resourceQuery);
+    //const resourceQuery = addResourcePrefix(cleanUpRegularParams);
+
+    console.log("Resource Query for MongoDB:", cleanUpRegularParams);
+
+    const results = await executeMongoQuery(collection, cleanUpRegularParams);
 
     if (results.length !== 0) {
       return res.status(200).json(results);
