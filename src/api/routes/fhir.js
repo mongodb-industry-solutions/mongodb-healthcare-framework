@@ -3,9 +3,7 @@ const router = express.Router();
 const { connectToMongoDB } = require("../services/database/mongodb");
 const { splitQueryParams } = require("../services/params/paramHandler");
 const { executeMongoQuery } = require("../services/query/mongoQuery");
-const {
-  addResourcePrefix,
-} = require("../services/params/resourceQueryHandler");
+require("../services/params/resourceQueryHandler");
 const {
   deconstructRegularParams,
 } = require("../services/params/deconstructRegularParams");
