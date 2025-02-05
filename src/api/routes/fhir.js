@@ -7,6 +7,7 @@ require("../services/params/resourceQueryHandler");
 const {
   deconstructRegularParams,
 } = require("../services/params/deconstructRegularParams");
+const { loadJSONFromFile, saveJSONToFile } = require("../services/json/loader");
 
 router.get("/:resource", async (req, res) => {
   const resource = req.params.resource;
@@ -70,6 +71,46 @@ router.get("/metadata/:resource", async (req, res) => {
     console.error("Error in handling request:", error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
+});
+
+function createEndpoints() {
+  const filePath = "../../data/fhir_data.json"; // Path to the JSON file
+  const fhirData = loadJSONFromFile(filePath);
+
+  if (!fhirData) {
+    console.error("No data available to create endpoints.");
+    return;
+  }
+
+  router.stack = [];
+
+  Object.keys(fhirData).forEach((resourceType) => {
+    router.get(`/${resourceType}`, (req, res) => {
+      res.json(fhirData[resourceType]);
+    });
+
+    router.get(`/${resourceType}/:id`, (req, res) => {
+      const item = fhirData[resourceType].find(
+        (resource) => resource.id === req.params.id
+      );
+      if (item) {
+        res.json(item);
+      } else {
+        res
+          .status(404)
+          .send(
+            `Resource of type ${resourceType} with ID ${req.params.id} not found`
+          );
+      }
+    });
+  });
+
+  console.log("Dynamic endpoints created successfully.");
+}
+
+router.get("/createEndpoints", (req, res) => {
+  createEndpoints();
+  res.json({ message: "Endpoints created successfully." });
 });
 
 module.exports = router;
