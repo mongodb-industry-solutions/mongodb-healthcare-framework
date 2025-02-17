@@ -2,6 +2,7 @@ const express = require("express");
 const { loadJSONFromFile } = require("../services/json/loader");
 const { connectToMongoDB } = require("../services/database/mongodb");
 const path = require("path");
+const { MongoGridFSChunkError } = require("mongodb");
 
 const router = express.Router();
 
@@ -18,6 +19,10 @@ async function createEndpoints() {
   router.stack = [];
 
   const db = await connectToMongoDB();
+  const fhirDataWithUsername = { ...fhirData, username: "test" };
+  const configCollection = db.collection("api_config");
+  await configCollection.insertOne(fhirDataWithUsername);
+  console.log("Inserting config file into MongoDB");
 
   Object.keys(fhirData).forEach((resourceType) => {
     console.log(resourceType);
