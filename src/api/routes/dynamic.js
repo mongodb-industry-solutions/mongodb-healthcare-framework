@@ -4,7 +4,8 @@ const { loadJSONFromFile, saveJSONToFile } = require("../services/json/loader");
 const path = require("path");
 
 function createEndpoints() {
-  const filePath = path.join(__dirname, "../../data/fhir_data.json");
+  const currentDir = process.cwd();
+  const filePath = path.join(currentDir, "src/data", "fhir_data.json");
   const fhirData = loadJSONFromFile(filePath);
 
   if (!fhirData) {
