@@ -4,6 +4,7 @@ const fhirRoutes = require("./routes/fhir");
 const dbRoutes = require("./routes/mongodb");
 const openehrRoutes = require("./routes/openehr");
 const dynamicRoutes = require("./routes/dynamic");
+const dynamicMongoRoutes = require("./routes/dynamic-mongo");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./docs/swagger.json");
 const morgan = require("morgan");
@@ -26,6 +27,7 @@ app.use(
   swaggerUi.setup(swaggerDocument, options)
 );
 app.use("/api/dynamic", dynamicRoutes);
+app.use("/api/dynmongo", dynamicMongoRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
