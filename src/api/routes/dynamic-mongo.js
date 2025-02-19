@@ -2,7 +2,6 @@ const express = require("express");
 const { loadJSONFromFile } = require("../services/json/loader");
 const { connectToMongoDB } = require("../services/database/mongodb");
 const path = require("path");
-const { MongoGridFSChunkError } = require("mongodb");
 
 const router = express.Router();
 
