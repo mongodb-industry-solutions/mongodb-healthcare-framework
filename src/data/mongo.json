@@ -1,20 +1,21 @@
 {
     "patient": {
-        "collection": "patients",
-        "routes": {
-            "/": "GET_ALL",
-            "/:id": "GET_ONE",
-            "/:id": "DELETE",
-            "/": "POST"
-        }
+      "collection": "patients",
+      "routes": [
+        { "path": "/", "method": "GET_ALL" },
+        { "path": "/:id", "method": "GET_ONE" },
+        { "path": "/:id", "method": "DELETE" },
+        { "path": "/", "method": "POST" }
+      ]
     },
     "doctor": {
-        "collection": "doctors",
-        "routes": {
-            "/": "GET_ALL",
-            "/:id": "GET_ONE",
-            "/": "DELETE",
-            "/": "POST"
-        }
+      "collection": "doctors",
+      "routes": [
+        { "path": "/", "method": "GET_ALL" },
+        { "path": "/:id", "method": "GET_ONE" },
+        { "path": "/:id", "method": "DELETE" },
+        { "path": "/", "method": "POST" }
+      ]
     }
-}
+  }
+  

@@ -9,6 +9,7 @@ async function createEndpoints() {
   const currentDir = process.cwd();
   const filePath = path.join(currentDir, "src/data", "mongo.json");
   const fhirData = loadJSONFromFile(filePath);
+  //console.log(JSON.stringify(fhirData, null, 2));
 
   if (!fhirData) {
     console.error("No data available to create endpoints.");
@@ -18,7 +19,13 @@ async function createEndpoints() {
   router.stack = [];
 
   const db = await connectToMongoDB();
-  const fhirDataWithUsername = { ...fhirData, username: "test" };
+
+  const fhirDataWithUsername = {
+    ...fhirData,
+    username: "test",
+    date: new Date(),
+  };
+
   const configCollection = db.collection("api_config");
   await configCollection.insertOne(fhirDataWithUsername);
   console.log("Inserting config file into MongoDB");
