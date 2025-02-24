@@ -1,0 +1,51 @@
+{
+    "Patient": {
+      "fhirOperations": {
+        "create": true,
+        "read": true,
+        "update": true,
+        "delete": true,
+        "vread": true,
+        "history-instance": true,
+        "history-type": true,
+        "search-type": true,
+        "patch": true,
+        "validate": true,
+        "everything": true
+      },
+      "fhirSearch": {
+        "id": "id",
+        "name": "name[].text",
+        "given": "name[].given",
+        "family": "name[].family",
+        "gender": "gender",
+        "birthdate": "birthDate",
+        "address": "address[].text",
+        "email": "telecom[?(@.system == 'email')].value",
+        "phone": "telecom[?(@.system == 'phone')].value",
+        "identifier": "identifier[].value",
+        "active": "active",
+        "language": "communication[].language.coding[0].code",
+        "general-practitioner": "generalPractitioner[].reference",
+        "organization": "managingOrganization.reference",
+        "link": "link[].other.reference"
+      },
+      "applicationData": {
+          "patientCategory": "customFields.patientCategory",
+          "riskScore": "customFields.riskScore",
+          "consentStatus": "customFields.consentStatus"
+      },
+      "applicationEmbeddings": {
+        "content": {
+          "path": "content.text",
+          "encodedBase64": "false",
+          "model": "text-embedding-3-large"
+        },
+        "notes": {
+          "path": "notes.data",
+          "encodedBase64": true,
+          "model": "text-embedding-3-small"
+        }
+      }
+    }
+  }

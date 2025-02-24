@@ -1,0 +1,26 @@
+{
+    "patient": {
+        "fhirOperations": {
+            "read": true
+        },
+        "fhirSearch": {},
+        "applicationData": {
+            "patientCategory": "customFields.patientCategory",
+            "riskScore": "customFields.riskScore",
+            "consentStatus": "customFields.consentStatus"
+        },
+        "applicationEmbeddings": {}
+    },
+    "appointment": {
+        "fhirOperations": {
+            "read": true
+        },
+        "fhirSearch": {},
+        "applicationData": {
+            "patientCategory": "customFields.patientCategory",
+            "riskScore": "customFields.riskScore",
+            "consentStatus": "customFields.consentStatus"
+        },
+        "applicationEmbeddings": {}
+    }
+}
