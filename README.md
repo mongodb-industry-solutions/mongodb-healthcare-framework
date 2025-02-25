@@ -18,7 +18,7 @@ The following table lists the FHIR operations supported by this system. These op
 
 | Feature             | Supported |
 | ------------------- | --------- |
-| Create             |         |
+| Create             | ✅       |
 | Read               | ✅       |
 | Update             |        |
 | Delete             |        |
