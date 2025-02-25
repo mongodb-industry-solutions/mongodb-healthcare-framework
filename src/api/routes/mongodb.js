@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {
   connectToDatabaseByParameter,
-} = require("../db/mongodb-connection-parameter");
+} = require("../services/db/mongodb-connection-parameter");
 
 /**
  * POST /api/mongodb/connect
