@@ -2,6 +2,7 @@ const express = require("express");
 const { loadJSONFromFile } = require("../services/json/loader");
 const { connectToMongoDB } = require("../services/database/mongodb");
 const path = require("path");
+const { ObjectId } = require("mongodb");
 
 const router = express.Router();
 
@@ -93,6 +94,38 @@ async function createEndpoints() {
               error
             );
             res.status(500).json({ error: "Internal server error" });
+          }
+        });
+      }
+      if (resourceConfig.fhirOperations?.delete) {
+        console.log(`Creating DELETE route for ${resourceType}`);
+        const collection = db.collection(resourceType);
+
+        router.delete(`/${resourceType}/:id`, async (req, res) => {
+          const { id } = req.params;
+
+          try {
+            const result = await collection.deleteOne({
+              _id: new ObjectId(id),
+            });
+
+            if (result.deletedCount === 1) {
+              return res.status(200).json({
+                message: `${resourceType} resource with ID ${id} deleted successfully.`,
+              });
+            } else {
+              return res.status(404).json({
+                error: `${resourceType} resource with ID ${id} not found.`,
+              });
+            }
+          } catch (error) {
+            console.error(
+              `Error deleting ${resourceType} with ID ${id}:`,
+              error
+            );
+            return res.status(500).json({
+              error: `Failed to delete ${resourceType} resource with ID ${id}.`,
+            });
           }
         });
       }

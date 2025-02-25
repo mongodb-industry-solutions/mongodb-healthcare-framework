@@ -2,7 +2,8 @@
     "patient": {
         "fhirOperations": {
             "read": true,
-            "create": true 
+            "create": true,
+            "delete": true
         },
         "fhirSearch": {},
         "applicationData": {},
