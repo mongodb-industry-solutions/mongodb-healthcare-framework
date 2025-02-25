@@ -11,3 +11,21 @@ docker build -t hc-framework .
 ```
 docker run -d --name hc-framework -p 3456:3456 hc-framework
 ```
+
+# FHIR Operations
+
+The following table lists the FHIR operations supported by this system. These operations allow interaction with FHIR resources.
+
+| Feature             | Supported |
+| ------------------- | --------- |
+| Create             |         |
+| Read               | ✅       |
+| Update             |        |
+| Delete             |        |
+| VRead              |        |
+| History (Instance) |        |
+| History (Type)     |        |
+| Search (Type)      |        |
+| Patch              |        |
+| Validate           |        |
+| Everything         |        |
