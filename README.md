@@ -20,12 +20,12 @@ The following table lists the FHIR operations supported by this system. These op
 | ------------------- | --------- |
 | Create             | ✅       |
 | Read               | ✅       |
-| Update             |        |
-| Delete             |        |
-| VRead              |        |
-| History (Instance) |        |
-| History (Type)     |        |
-| Search (Type)      |        |
-| Patch              |        |
-| Validate           |        |
-| Everything         |        |
+| Update             | ❌       |
+| Delete             | ❌       |
+| VRead              | ❌       |
+| History (Instance) | ❌       |
+| History (Type)     | ❌       |
+| Search (Type)      | ❌       |
+| Patch              | ❌       |
+| Validate           | ❌       |
+| Everything         | ❌       |
