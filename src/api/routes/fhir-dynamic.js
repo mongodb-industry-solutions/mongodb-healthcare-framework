@@ -129,6 +129,61 @@ async function createEndpoints() {
           }
         });
       }
+      if (resourceConfig.fhirOperations?.update) {
+        console.log(`Creating PUT route for ${resourceType}`);
+        const collection = db.collection(resourceType);
+
+        router.put(`/${resourceType}/:id`, async (req, res) => {
+          const { id } = req.params;
+          const updatedData = req.body;
+
+          try {
+            const result = await collection.updateOne(
+              { _id: new ObjectId(id) },
+              { $set: updatedData }
+            );
+
+            if (result.matchedCount === 1) {
+              return res.status(200).json({
+                resourceType: resourceType,
+                id: id,
+                status: "updated",
+                message: `${resourceType} resource with ID ${id} updated successfully.`,
+              });
+            } else {
+              return res.status(404).json({
+                resourceType: resourceType,
+                issue: [
+                  {
+                    severity: "error",
+                    code: "not-found",
+                    details: {
+                      text: `${resourceType} resource with ID ${id} not found.`,
+                    },
+                  },
+                ],
+              });
+            }
+          } catch (error) {
+            console.error(
+              `Error updating ${resourceType} with ID ${id}:`,
+              error
+            );
+            return res.status(500).json({
+              resourceType: resourceType,
+              issue: [
+                {
+                  severity: "fatal",
+                  code: "processing",
+                  details: {
+                    text: `Failed to update ${resourceType} resource with ID ${id}.`,
+                  },
+                },
+              ],
+            });
+          }
+        });
+      }
     });
 
     console.log("Dynamic endpoints created successfully.");
