@@ -5,7 +5,7 @@ const dbRoutes = require("./routes/mongodb");
 const openehrRoutes = require("./routes/openehr");
 const fhirDynamicRoutes = require("./routes/fhir-dynamic");
 const swaggerUi = require("swagger-ui-express");
-const swaggerDocument = require("./docs/swagger.json");
+const swaggerDocument = require("./routes/docs/swagger.json");
 const morgan = require("morgan");
 
 const app = express();

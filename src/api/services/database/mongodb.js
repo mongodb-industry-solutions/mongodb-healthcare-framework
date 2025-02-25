@@ -1,4 +1,4 @@
-const { connectToDatabase } = require("../../db/mongodb-connection");
+const { connectToDatabase } = require("../db/mongodb-connection");
 
 /**
  * Establishes a connection to the MongoDB database using the provided configuration.
