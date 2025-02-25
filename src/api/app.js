@@ -3,8 +3,7 @@ const bodyParser = require("body-parser");
 const fhirRoutes = require("./routes/fhir");
 const dbRoutes = require("./routes/mongodb");
 const openehrRoutes = require("./routes/openehr");
-const dynamicRoutes = require("./routes/dynamic");
-const dynamicMongoRoutes = require("./routes/dynamic-mongo");
+const fhirDynamicRoutes = require("./routes/fhir-dynamic");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./docs/swagger.json");
 const morgan = require("morgan");
@@ -22,12 +21,11 @@ app.use("/api/fhir/r4", fhirRoutes);
 app.use("/api/openehr/v1", openehrRoutes);
 app.use("/api/db", dbRoutes);
 app.use(
-  "/api-docs",
+  "/api/docs",
   swaggerUi.serve,
   swaggerUi.setup(swaggerDocument, options)
 );
-app.use("/api/dynamic", dynamicRoutes);
-app.use("/api/dynmongo", dynamicMongoRoutes);
+app.use("/api/dynamic/fhir/r4", fhirDynamicRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

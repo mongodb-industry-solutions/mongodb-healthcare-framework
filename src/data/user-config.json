@@ -1,7 +1,8 @@
 {
     "patient": {
         "fhirOperations": {
-            "read": true
+            "read": true,
+            "create": true
         },
         "fhirSearch": {},
         "applicationData": {
