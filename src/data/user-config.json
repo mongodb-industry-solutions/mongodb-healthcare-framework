@@ -5,11 +5,7 @@
             "create": true 
         },
         "fhirSearch": {},
-        "applicationData": {
-            "patientCategory": "customFields.patientCategory",
-            "riskScore": "customFields.riskScore",
-            "consentStatus": "customFields.consentStatus"
-        },
+        "applicationData": {},
         "applicationEmbeddings": {}
     },
     "appointment": {
@@ -17,11 +13,7 @@
             "read": true
         },
         "fhirSearch": {},
-        "applicationData": {
-            "patientCategory": "customFields.patientCategory",
-            "riskScore": "customFields.riskScore",
-            "consentStatus": "customFields.consentStatus"
-        },
+        "applicationData": {},
         "applicationEmbeddings": {}
     }
 }
