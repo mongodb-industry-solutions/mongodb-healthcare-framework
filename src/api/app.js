@@ -1,5 +1,4 @@
 const express = require("express");
-const bodyParser = require("body-parser");
 const fhirRoutes = require("./routes/fhir");
 const dbRoutes = require("./routes/mongodb");
 const openehrRoutes = require("./routes/openehr");
@@ -14,7 +13,7 @@ const options = {
   explorer: true,
 };
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(morgan("short"));
 
 app.use("/api/fhir/r4", fhirRoutes);
