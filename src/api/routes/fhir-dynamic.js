@@ -36,29 +36,30 @@ async function saveAPIConfig(configFile, db) {
   }
 }
 
-async function createEndpoints() {
+router.post("/create", async (req, res) => {
+  const configFile = req.body;
+
+  //console.log(JSON.stringify(configFile, null, 2));
+
+  if (!configFile || Object.keys(configFile).length === 0) {
+    return res.status(400).json({ error: "API configuration cannot be empty" });
+  }
+
   try {
-    const currentDir = process.cwd();
-    const filePath = path.join(currentDir, "src/data", "user-config.json");
-    const configFile = loadJSONFromFile(filePath);
-    console.log("Loaded FHIR api Config File");
-    //console.log("Loaded Config:", JSON.stringify(configFile, null, 2));
+    console.log("Received API Config File");
 
-    if (!configFile) {
-      console.error("No configuration found.");
-      return;
-    }
-
-    router.stack = [];
     const db = await connectDB();
 
     await saveAPIConfig(configFile, db);
 
+    router.stack = [];
+
     Object.keys(configFile).forEach((resourceType) => {
       const resourceConfig = configFile[resourceType];
+      const collection = db.collection(resourceType);
+
       if (resourceConfig.fhirOperations?.read) {
         console.log(`Creating GET route for ${resourceType}`);
-        const collection = db.collection(resourceType);
 
         router.get(`/${resourceType}`, async (req, res) => {
           try {
@@ -70,9 +71,9 @@ async function createEndpoints() {
           }
         });
       }
+
       if (resourceConfig.fhirOperations?.create) {
         console.log(`Creating POST route for ${resourceType}`);
-        const collection = db.collection(resourceType);
 
         router.post(`/${resourceType}`, async (req, res) => {
           try {
@@ -97,9 +98,9 @@ async function createEndpoints() {
           }
         });
       }
+
       if (resourceConfig.fhirOperations?.delete) {
         console.log(`Creating DELETE route for ${resourceType}`);
-        const collection = db.collection(resourceType);
 
         router.delete(`/${resourceType}/:id`, async (req, res) => {
           const { id } = req.params;
@@ -129,9 +130,9 @@ async function createEndpoints() {
           }
         });
       }
+
       if (resourceConfig.fhirOperations?.update) {
         console.log(`Creating PUT route for ${resourceType}`);
-        const collection = db.collection(resourceType);
 
         router.put(`/${resourceType}/:id`, async (req, res) => {
           const { id } = req.params;
@@ -187,14 +188,11 @@ async function createEndpoints() {
     });
 
     console.log("Dynamic endpoints created successfully.");
+    res.json({ message: "Endpoints created successfully." });
   } catch (error) {
     console.error("Error creating endpoints:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-}
-
-router.get("/create", async (req, res) => {
-  await createEndpoints();
-  res.json({ message: "Endpoints created successfully." });
 });
 
 module.exports = router;
