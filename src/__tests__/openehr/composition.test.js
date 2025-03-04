@@ -1,4 +1,4 @@
-const { createComposition } = require("../../api/services/openehr/composition"); // Adjust the path accordingly
+const { createComposition } = require("../../api/services/openehr/composition");
 
 describe("createComposition", () => {
   it("should create a composition with default values", () => {

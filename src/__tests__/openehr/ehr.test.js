@@ -1,4 +1,4 @@
-const { createEHRDocument } = require("../../api/services/openehr/ehr"); // Adjust the path accordingly
+const { createEHRDocument } = require("../../api/services/openehr/ehr");
 
 describe("createEHRDocument", () => {
   it("should create an EHR document with the provided ehrId", () => {
