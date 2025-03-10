@@ -5,6 +5,7 @@ const openehrRoutes = require("./routes/openehr");
 const fhirDynamicRoutes = require("./routes/fhir-dynamic");
 const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./routes/docs/swagger2.json");
+const pythonRunnerRoute = require("./routes/python/runner-route");
 const morgan = require("morgan");
 
 const app = express();
@@ -25,6 +26,7 @@ app.use(
   swaggerUi.setup(swaggerDocument, options)
 );
 app.use("/api/dynamic/fhir/r4", fhirDynamicRoutes);
+app.use("/api/python", pythonRunnerRoute);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
