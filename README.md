@@ -2,6 +2,18 @@
 
 To load test data into MongoDB, download [synthea latest FHIR dataset](https://synthetichealth.github.io/synthea-sample-data/downloads/latest/synthea_sample_data_fhir_latest.zip), extract and place it inside `modules/fhir/load-data`
 
+# Run the API
+
+```
+npm install
+````
+
+```
+npm run api
+```
+
+Open your browser and navigate to http://localhost:3456/api/docs to view the OpenAPI documentation.
+
 
 # Docker Container for API
 ```
