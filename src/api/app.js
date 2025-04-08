@@ -7,6 +7,7 @@ const swaggerUi = require("swagger-ui-express");
 const swaggerDocument = require("./routes/docs/swagger2.json");
 const pythonRunnerRoute = require("./routes/python/runner-route");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const app = express();
 const PORT = 3456;
@@ -16,6 +17,7 @@ const options = {
 
 app.use(express.json());
 app.use(morgan("short"));
+app.use(cors());
 
 app.use("/api/fhir/r4", fhirRoutes);
 app.use("/api/openehr/v1", openehrRoutes);
